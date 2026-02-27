@@ -58,14 +58,9 @@ public class Dasher : MonoBehaviour
         // Use velocity for a snappy, non-physics-fighting dash
         _rb.linearVelocity = direction * dashSpeed;
 
-        // Wait until we are close to the target or a timeout occurs
 
-        float dashTimer = 0;
-        while (Vector2.Distance(transform.position, _targetPosition) > 0.5f && dashTimer < 1f)
-        {
-            dashTimer += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
+        float dashDuration = 0.5f; // Max time to dash
+        yield return new WaitForSeconds(dashDuration);
 
         // 4. Cool Down Phase
         _rb.linearVelocity = Vector2.zero;

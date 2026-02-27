@@ -16,6 +16,7 @@ public class Dasher : MonoBehaviour
     private Vector2 _targetPosition;
     private bool _isActionInProgress = false;
 
+    [SerializeField] private GameObject explosionObj;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -58,14 +59,14 @@ public class Dasher : MonoBehaviour
         _rb.linearVelocity = direction * dashSpeed;
 
         // Wait until we are close to the target or a timeout occurs
-        
+
         float dashTimer = 0;
         while (Vector2.Distance(transform.position, _targetPosition) > 0.5f && dashTimer < 1f)
         {
             dashTimer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        
+
         // 4. Cool Down Phase
         _rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(dashCooldown);
@@ -78,5 +79,11 @@ public class Dasher : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Instantiate(explosionObj, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

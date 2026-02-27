@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 _targetPos;
     Vector2 input;
 
+
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -23,7 +25,6 @@ public class PlayerController : MonoBehaviour
         _targetPos = _rb.position + input * _speed * Time.fixedDeltaTime + new Vector2(_bloodflowSpeed * Time.fixedDeltaTime, 0);
 
         _rb.MovePosition(_targetPos);
-
     }
 
     private void OnMove(InputValue value)

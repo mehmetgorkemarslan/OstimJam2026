@@ -8,10 +8,15 @@ public class RadialEnemy : MonoBehaviour
     [SerializeField] private int antibodyCount = 8;
     [SerializeField] private float projectileSpeed = 5f;
     [SerializeField] private float fireRate = 3f;
+    [SerializeField] private float range = 8f;
+    Transform player;
+
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         StartCoroutine(SpawnRoutine());
+        
     }
 
     private IEnumerator SpawnRoutine()
@@ -19,8 +24,16 @@ public class RadialEnemy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(fireRate);
-            SpawnRadialBurst();
+            if(Vector2.Distance(player.position, transform.position) < range)
+                SpawnRadialBurst();
         }
+    }
+
+    // Visualize the range in the editor
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 
     private void SpawnRadialBurst()

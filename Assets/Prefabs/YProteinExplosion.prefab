@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6319346800739173721}
   - component: {fileID: 2461882054057664181}
   - component: {fileID: 5112566794867488355}
-  - component: {fileID: 5187380416437567552}
+  - component: {fileID: 8492255222677298475}
   m_Layer: 0
-  m_Name: RadialEnemyProjectileExplosion
-  m_TagString: RadialEnemyProjectile
+  m_Name: YProteinExplosion
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4842,7 +4842,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04286de9501afb040abcb2f9bfaf74bd, type: 2}
+  - {fileID: 2100000, guid: 5d8a37a7bf3cf8343a3fa6a786a3af2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4909,7 +4909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyInSeconds
   time: 2
---- !u!82 &5187380416437567552
+--- !u!82 &8492255222677298475
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

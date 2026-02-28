@@ -34,7 +34,7 @@ public class AntibodyProjectile : MonoBehaviour
             if(collision.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Player hit by Antibody!");
-                collision.gameObject.GetComponent<PlayerController>().Stun(2);
+                collision.gameObject.GetComponent<PlayerController>().Stun();
             }
             
             // Spawn explosion effect

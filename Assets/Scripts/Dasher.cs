@@ -96,9 +96,12 @@ public class Dasher : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("VeinWall"))
+        {
+            Instantiate(explosionObj, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
         
-        Instantiate(explosionObj, transform.position, Quaternion.identity);
-        Destroy(gameObject);
     }
 
     void Update()

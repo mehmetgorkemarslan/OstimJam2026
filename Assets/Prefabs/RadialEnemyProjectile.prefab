@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7434437364266859478}
   - component: {fileID: 414152182032260253}
   - component: {fileID: -8609227235809020087}
+  - component: {fileID: -3163790200169185076}
   m_Layer: 7
   m_Name: RadialEnemyProjectile
   m_TagString: RadialEnemyProjectile
@@ -172,3 +173,25 @@ MonoBehaviour:
   damage: 10
   lifeTime: 3
   explosionObj: {fileID: 5408281288384044839, guid: b0e1ec739f17a1a4f9367e5acdd6421e, type: 3}
+--- !u!95 &-3163790200169185076
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374199608396312281}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f619b2498ca3cf41b98067a05f40493, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

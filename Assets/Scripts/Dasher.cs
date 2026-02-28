@@ -96,6 +96,7 @@ public class Dasher : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         Instantiate(explosionObj, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

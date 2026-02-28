@@ -38,6 +38,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 _smoothedInput;
     [SerializeField] private float _inputSmoothTime = 0.1f;
 
+    private float _normalSpeed;
+
+    private float _stunnedSpeedMultiplier = 0.7f;
+    private float _stunnedTimer;
+    private bool _isStunned;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -47,6 +53,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _currentStamina = _maxStamina;
+        _normalSpeed = _speed;
     }
 
     private void FixedUpdate()
@@ -83,12 +90,33 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat("speedMultiplier", movementDirection.magnitude * _animSpeedMultiplier);
     }
 
+    private void Update()
+    {
+        if(_isStunned)
+        {
+            _stunnedTimer -= Time.deltaTime;
+            if (_stunnedTimer <= 0)
+            {
+                _isStunned = false;
+                _speed = _normalSpeed;
+            }
+        }
+    }
+
     private void OnMove(InputValue value)
     {
         input = value.Get<Vector2>();
         
         
     }
+
+    public void Stun(float stunTime)
+    {
+        _isStunned = true;
+        _stunnedTimer = stunTime; 
+        _speed = _normalSpeed * _stunnedSpeedMultiplier;
+    }
+
 
 }
 

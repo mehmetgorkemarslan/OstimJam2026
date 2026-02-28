@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5272158121958788026}
   - component: {fileID: 7434437364266859478}
   - component: {fileID: 414152182032260253}
+  - component: {fileID: -8609227235809020087}
   m_Layer: 7
-  m_Name: Alyuvar
-  m_TagString: Untagged
+  m_Name: RadialEnemyProjectile
+  m_TagString: RadialEnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7796417838471211935, guid: 1646e381544dc39459609cf5c558b610, type: 3}
+  m_Sprite: {fileID: -7926936211901544072, guid: 1339840106d3c9c4d8b6b3f122baf93a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,8 +128,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0009264946, y: -0.00833571}
-  m_Radius: 0.32665682
+  m_Offset: {x: 0.0009264946, y: 0.03}
+  m_Radius: 0.38
 --- !u!50 &414152182032260253
 Rigidbody2D:
   serializedVersion: 5
@@ -154,5 +155,20 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &-8609227235809020087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374199608396312281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7837be021cf911748b661c335e84a3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AntibodyProjectile
+  damage: 10
+  lifeTime: 3
+  explosionObj: {fileID: 5408281288384044839, guid: b0e1ec739f17a1a4f9367e5acdd6421e, type: 3}

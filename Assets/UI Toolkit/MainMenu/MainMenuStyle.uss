@@ -1,0 +1,21 @@
+VisualElement {
+    flex-grow: 1;
+}
+
+.button {
+    font-size: 50px;
+    width: 20%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.button:hover {
+    scale: 1.1 1.1;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+}
+
+.button:active {
+}

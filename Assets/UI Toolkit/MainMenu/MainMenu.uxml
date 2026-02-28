@@ -1,0 +1,15 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=53d18f08d8303924bb9f6ae06ce763ec&amp;type=3#MainMenuStyle"/>
+    <ui:VisualElement>
+        <ui:VisualElement name="CharacterBackground" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/CharacterAndTitle.jpeg?fileID=2800000&amp;guid=be391b0ed67c8b24eaf369a03259af12&amp;type=3#CharacterAndTitle&quot;); position: absolute; width: 100%; height: 100%;"/>
+        <ui:VisualElement name="TextAndButton" style="flex-grow: 1;">
+            <ui:VisualElement name="Title" style="flex-grow: 4;"/>
+            <ui:VisualElement name="Buttons" style="flex-grow: 5.5; justify-content: space-around; align-items: center; padding-bottom: 5%; flex-basis: 0;">
+                <ui:Button text="Start" name="StartBtn" class="button"/>
+                <ui:Button text="Credits" name="CreditsBtn" class="button"/>
+                <ui:Button text="Level" name="LevelBtn" class="button"/>
+                <ui:Button text="Exit" name="ExitBtn" class="button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

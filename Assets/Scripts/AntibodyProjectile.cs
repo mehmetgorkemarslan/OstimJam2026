@@ -3,11 +3,17 @@ using UnityEngine;
 public class AntibodyProjectile : MonoBehaviour
 {
     public float damage = 10f;
-    public float lifeTime = 5f;
+    public float lifeTime = 15f;
     private float _speed;
     private Vector2 _direction;
     public GameObject explosionObj;
-    
+    Transform player;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     public void Setup(Vector2 dir, float speed)
     {
         _direction = dir;
@@ -30,6 +36,10 @@ public class AntibodyProjectile : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("RadialEnemy") && !collision.gameObject.CompareTag("RadialEnemyProjectile"))
         {
+
+            if (Vector2.Distance(player.position, transform.position) > 20)
+                return;
+
             // Trigger damage logic on player here
             if(collision.gameObject.CompareTag("Player"))
             {
@@ -48,10 +58,11 @@ public class AntibodyProjectile : MonoBehaviour
 
     void DestroySelf()
     {
+        /*
         if (explosionObj != null)
         {
             Instantiate(explosionObj, transform.position, Quaternion.identity);
-        }
+        }*/
         Destroy(gameObject); 
     }
 }

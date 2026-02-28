@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadialEnemy
   antibodyPrefab: {fileID: 6374199608396312281, guid: 0074851922b88d444ae176eabfffe3f5, type: 3}
-  antibodyCount: 8
+  antibodyCount: 5
   projectileSpeed: 5
   fireRate: 3
   range: 15

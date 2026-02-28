@@ -6,6 +6,7 @@ public class Dasher : MonoBehaviour
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 8f;
     [SerializeField] private Transform playerTransform;
+    private LineRenderer _lineRenderer;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 20f;
@@ -20,9 +21,13 @@ public class Dasher : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _lineRenderer = GetComponent<LineRenderer>();
         // If not assigned in inspector, try to find the player by tag
         if (playerTransform == null)
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // Ensure the line is off at the start
+        _lineRenderer.enabled = false;
     }
 
     void FixedUpdate()
@@ -45,11 +50,24 @@ public class Dasher : MonoBehaviour
         // 1. Aiming Phase (Store position)
         _targetPosition = playerTransform.position;
 
-        // Visual cue: Maybe vibrate or change color here
+        // Show the Telegraph Line
+        _lineRenderer.enabled = true;
+
+        // Update line points: Start at enemy, end at target position
+        // We can even extend the line further to show the "overshoot"
+        _lineRenderer.SetPosition(0, transform.position);
+        _lineRenderer.SetPosition(1, _targetPosition + ((_targetPosition - (Vector2)transform.position).normalized * 2f));
+
         Debug.Log("Dasher Locked On!");
+
+
+
 
         // 2. Wait Phase
         yield return new WaitForSeconds(pauseBeforeDash);
+
+        // Hide the line right as we launch
+        _lineRenderer.enabled = false;
 
         // 3. Dash Phase
         Vector2 startPos = transform.position;
@@ -80,5 +98,16 @@ public class Dasher : MonoBehaviour
     {
         Instantiate(explosionObj, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (_lineRenderer.enabled)
+        {
+            _lineRenderer.SetPosition(0, transform.position);
+            // Optional: Comment the line below if you want the dash 
+            // to lock onto the INITIAL spot and not track the player
+          //  _lineRenderer.SetPosition(1, playerTransform.position);
+        }
     }
 }

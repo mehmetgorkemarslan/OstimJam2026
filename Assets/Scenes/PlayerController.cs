@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IEnergy, IHealth
 {
+    private PlayerInput _playerInput;
     [SerializeField]
     private float _speed = 5f;
 
@@ -75,6 +76,28 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void OnEnable()
+    {
+        if (_playerInput != null)
+        {
+            // 1. Tüm girdi sistemini bir anlık durdur (resetle)
+            _playerInput.DeactivateInput();
+        
+            // 2. Mevcut haritayı devre dışı bırak
+            _playerInput.currentActionMap?.Disable();
+
+            // 3. "Player" haritasına geç ve AKTİFLEŞTİR
+            _playerInput.SwitchCurrentActionMap("Player");
+            _playerInput.currentActionMap.Enable();
+        
+            // 4. Girdi sistemini yeniden uyandır
+            _playerInput.ActivateInput();
+        
+            Debug.Log($"Aktif Harita: {_playerInput.currentActionMap.name}");
+        }
     }
 
     void Start()
@@ -112,7 +135,7 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
             return;
 
         float staminaMultiplier = Mathf.Clamp01(_currentStamina / 10);
-        // 1. Smooth the raw input
+        // 1. Smooth the raw inputdsas
         _smoothedInput = Vector2.SmoothDamp(_smoothedInput, input * staminaMultiplier, ref _currentInputVelocity, _inputSmoothTime);
 
         //staminaBar.fillAmount = _currentStamina / _maxStamina;
@@ -169,6 +192,7 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
 
     private void OnMove(InputValue value)
     {
+        Debug.Log("Input geldi");
         input = value.Get<Vector2>();
 
 

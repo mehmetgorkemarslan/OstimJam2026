@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Dasher : MonoBehaviour
 {
+
+    public int damage = 20;
+
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 8f;
     [SerializeField] private Transform playerTransform;
@@ -98,6 +101,12 @@ public class Dasher : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("VeinWall"))
         {
+            if(collision.gameObject.CompareTag("Player"))
+            {
+                //collision.gameObject.GetComponent<PlayerController>().Stun();
+                collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+            }
+
             Instantiate(explosionObj, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

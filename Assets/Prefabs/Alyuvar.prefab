@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5272158121958788026}
   - component: {fileID: 7434437364266859478}
   - component: {fileID: 414152182032260253}
+  - component: {fileID: 1822058694130924095}
   m_Layer: 7
   m_Name: Alyuvar
   m_TagString: Untagged
@@ -156,3 +157,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1822058694130924095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374199608396312281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b969bae251f35f74b96778886dc8a226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Alyuvar
+  _rotationSpeed: 5
+  _speed: 2
+  explosionObj: {fileID: 5408281288384044839, guid: f07ee91579a6aba4493eb2b5def3f202, type: 3}

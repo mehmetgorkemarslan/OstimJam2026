@@ -3,8 +3,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
+using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEnergy, IHealth
 {
     [SerializeField]
     private float _speed = 5f;
@@ -38,8 +39,6 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
 
-    [SerializeField]
-    Image staminaBar;
 
     // --- Add these new variables to your class ---
     private Vector2 _currentInputVelocity; // Used internally by SmoothDamp
@@ -58,6 +57,12 @@ public class PlayerController : MonoBehaviour
     private float _initialDistort;
     private float _initialVignette;
 
+    public event Action<int> OnHealthChanced;
+
+    public int health;
+    public int maxHealth = 100;
+
+
 
     private void Awake()
     {
@@ -69,6 +74,8 @@ public class PlayerController : MonoBehaviour
     {
         _currentStamina = _maxStamina;
         _normalSpeed = _speed;
+        health = maxHealth;
+        OnHealthChanced?.Invoke(health);
 
         if (_postProcessVolume != null && _postProcessVolume.profile != null)
         {
@@ -95,7 +102,7 @@ public class PlayerController : MonoBehaviour
         // 1. Smooth the raw input
         _smoothedInput = Vector2.SmoothDamp(_smoothedInput, input * staminaMultiplier, ref _currentInputVelocity, _inputSmoothTime);
 
-        staminaBar.fillAmount = _currentStamina / _maxStamina;
+        //staminaBar.fillAmount = _currentStamina / _maxStamina;
         
 
         // 2. Use _smoothedInput instead of input for the math
@@ -179,6 +186,32 @@ public class PlayerController : MonoBehaviour
             // Blend from (Initial + 0.4) back to Initial
             _vignette.intensity.Override(_initialVignette + (intensity * 0.4f));
         }
+    }
+
+    public int getEnergy()
+    {
+        return (int)_currentStamina;
+    }
+
+    public int getMaxEnergy()
+    {
+        return (int)_maxStamina;
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        OnHealthChanced?.Invoke(health);
     }
 }
 

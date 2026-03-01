@@ -88,6 +88,7 @@ public class InGameUiController : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        Debug.Log("Load Main Menu Clicked");
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }

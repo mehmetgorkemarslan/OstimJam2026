@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class AntibodyProjectile : MonoBehaviour
 {
-    public float damage = 10f;
+    public int damage = 10;
     public float lifeTime = 15f;
     private float _speed;
     private Vector2 _direction;
     public GameObject explosionObj;
     Transform player;
+
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class AntibodyProjectile : MonoBehaviour
             {
                 Debug.Log("Player hit by Antibody!");
                 collision.gameObject.GetComponent<PlayerController>().Stun();
+                collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
             }
             
             // Spawn explosion effect

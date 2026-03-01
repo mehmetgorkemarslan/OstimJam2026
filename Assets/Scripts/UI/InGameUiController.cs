@@ -45,7 +45,6 @@ public class InGameUiController : MonoBehaviour
         {
             SetBarsActive();
         }
-        
     }
 
     private void OnEnable()

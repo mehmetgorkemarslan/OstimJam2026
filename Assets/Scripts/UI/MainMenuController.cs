@@ -91,7 +91,6 @@ public class MainMenuController : MonoBehaviour
     private void OnLevelClick(ClickEvent evt)
     {
         HideAllExcept(_levelMenu);
-
         GenerateLevelButtons();
     }
 

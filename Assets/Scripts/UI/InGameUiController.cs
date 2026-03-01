@@ -58,14 +58,14 @@ public class InGameUiController : MonoBehaviour
     private void HandleHealthChance(int newHealth)
     {
         //TODO: Smooth Animation
-        healthSlider.fillAmount = newHealth / _maxHealth;
+        healthSlider.fillAmount = ((float)newHealth) / ((float)_maxHealth);
     }
 
     private void Update()
     {
         if (!_isGameStoped)
         {
-            energySlider.fillAmount = _playerEnergy.getEnergy() / _maxEnergy;
+            energySlider.fillAmount = ((float)_playerEnergy.getEnergy()) / ((float)_maxEnergy);
         }
     }
 

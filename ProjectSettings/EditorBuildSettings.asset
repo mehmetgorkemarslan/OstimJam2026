@@ -6,8 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/Scenes/MainMenu.unity
     guid: abc1ac49a5acb314ab24389175800b01
+=======
+    path: Assets/Scenes/Eating.unity
+    guid: dfa8b99df95ee124fb03b36c5d83a867
+>>>>>>> Stashed changes
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: f470e2df275608a49afae0b970dd2304
@@ -17,6 +22,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level3.unity
     guid: 3d5e853252594be499804f909ad2ad23
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: 552142d86cbd32842988dad624d7ce62
+  - enabled: 1
+    path: Assets/Scenes/Death.unity
+    guid: fc1281d649ffedd41b9d84e3da6c936a
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: fa5b4816aa5bf674d938310a50d9ab23, type: 2}

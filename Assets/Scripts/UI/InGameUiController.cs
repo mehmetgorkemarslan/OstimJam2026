@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -13,6 +12,9 @@ public class InGameUiController : MonoBehaviour
     [SerializeField] private Image energySlider;
 
     [SerializeField] private GameObject player;
+    [SerializeField] Animator animator;
+    private static readonly int closeScene = Animator.StringToHash("CloseScene");
+
     private IHealth _playerHealth;
     private IEnergy _playerEnergy;
     private int _maxHealth;
@@ -43,6 +45,7 @@ public class InGameUiController : MonoBehaviour
         {
             SetBarsActive();
         }
+        
     }
 
     private void OnEnable()
@@ -58,14 +61,14 @@ public class InGameUiController : MonoBehaviour
     private void HandleHealthChance(int newHealth)
     {
         //TODO: Smooth Animation
-        healthSlider.fillAmount = ((float)newHealth) / ((float)_maxHealth);
+        healthSlider.fillAmount = Mathf.Lerp(0.22f, _maxHealth, ((float)newHealth) / ((float)_maxHealth));
     }
 
     private void Update()
     {
         if (!_isGameStoped)
         {
-            energySlider.fillAmount = ((float)_playerEnergy.getEnergy()) / ((float)_maxEnergy);
+            energySlider.fillAmount = Mathf.Lerp(0.22f, _maxEnergy,(float)_playerEnergy.getEnergy()) / ((float)_maxEnergy);
         }
     }
 
@@ -96,5 +99,10 @@ public class InGameUiController : MonoBehaviour
 #else
     Application.Quit();
 #endif
+    }
+
+    public void CloseScene()
+    {
+        animator.SetTrigger(closeScene);
     }
 }

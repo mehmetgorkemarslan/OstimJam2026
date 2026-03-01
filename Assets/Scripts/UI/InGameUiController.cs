@@ -61,14 +61,15 @@ public class InGameUiController : MonoBehaviour
     private void HandleHealthChance(int newHealth)
     {
         //TODO: Smooth Animation
-        healthSlider.fillAmount = Mathf.Lerp(0.22f, _maxHealth, ((float)newHealth) / ((float)_maxHealth));
+        Debug.Log("health chagned");
+        healthSlider.fillAmount = Mathf.Lerp(0.22f, 1.0f, ((float)newHealth) / ((float)_maxHealth));
     }
 
     private void Update()
     {
         if (!_isGameStoped)
         {
-            energySlider.fillAmount = Mathf.Lerp(0.22f, _maxEnergy,(float)_playerEnergy.getEnergy()) / ((float)_maxEnergy);
+            energySlider.fillAmount = Mathf.Lerp(0.1f, 1.0f, (float)_playerEnergy.getEnergy() / ((float)_maxEnergy));
         }
     }
 

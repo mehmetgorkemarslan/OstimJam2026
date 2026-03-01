@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IEnergy, IHealth
 {
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
     private float _speed = 5f;
 
     [SerializeField]
-    private float _bloodflowSpeed = 2f;
+    public float _bloodflowSpeed = 2f;
 
     [SerializeField]
     private float _maxStamina = 100f;
@@ -62,12 +63,18 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
     public int health;
     public int maxHealth = 100;
 
+    public GameObject playerDeathExplosion;
 
+    bool isAlive;
 
+    SpriteRenderer spriteRenderer;
+
+    public InGameUiController InGameUiController;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()
@@ -76,6 +83,9 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
         _normalSpeed = _speed;
         health = maxHealth;
         OnHealthChanced?.Invoke(health);
+        isAlive = true;
+        spriteRenderer.enabled = true; 
+
 
         if (_postProcessVolume != null && _postProcessVolume.profile != null)
         {
@@ -98,12 +108,15 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
 
     private void FixedUpdate()
     {
-        float staminaMultiplier = Mathf.Clamp01( _currentStamina / 10);
+        if (!isAlive)
+            return;
+
+        float staminaMultiplier = Mathf.Clamp01(_currentStamina / 10);
         // 1. Smooth the raw input
         _smoothedInput = Vector2.SmoothDamp(_smoothedInput, input * staminaMultiplier, ref _currentInputVelocity, _inputSmoothTime);
 
         //staminaBar.fillAmount = _currentStamina / _maxStamina;
-        
+
 
         // 2. Use _smoothedInput instead of input for the math
         Vector2 movement = _smoothedInput * staminaMultiplier * _speed;
@@ -133,7 +146,10 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
 
     private void Update()
     {
-        if(_isStunned)
+
+
+
+        if (_isStunned)
         {
             _stunnedTimer -= Time.deltaTime;
 
@@ -154,14 +170,14 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
     private void OnMove(InputValue value)
     {
         input = value.Get<Vector2>();
-        
-        
+
+
     }
 
     public void Stun()
     {
         _isStunned = true;
-        _stunnedTimer = _stunTime; 
+        _stunnedTimer = _stunTime;
         _speed = _normalSpeed * _stunnedSpeedMultiplier;
     }
 
@@ -212,7 +228,58 @@ public class PlayerController : MonoBehaviour, IEnergy, IHealth
     {
         health -= damage;
         OnHealthChanced?.Invoke(health);
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
     }
-}
 
+    public void AddHealth(int add)
+    {
+        health += add;
+        if (health >= 100)
+        {
+            health = 100;
+        }
+        OnHealthChanced?.Invoke(health);
+        Debug.Log("event triggered");
+    }
+
+    public void Die()
+    {
+        
+        if(isAlive)
+        {
+            Instantiate(playerDeathExplosion, transform.position, Quaternion.identity);
+            _isStunned = false;
+            spriteRenderer.enabled = false; // Hide the player sprite
+            GetComponent<Collider2D>().enabled = false; // Disable collisions
+            Invoke(nameof(ReloadLevel), 2f); // Delay to allow death animation/effects to play
+            isAlive = false;
+        }
+       
+    }
+
+    void ReloadLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("LevelEndTrigger"))
+        {
+            InGameUiController.CloseScene();
+            Invoke(nameof(LoadNextScene), 1f); // Delay to allow any end-of-level effects to play
+        }
+    }
+
+    void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+}
     

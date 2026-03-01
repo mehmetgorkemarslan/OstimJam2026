@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class YProtein : MonoBehaviour
 {
+    public int damage = 10;
     public float speed;
     public GameObject explosionObj;
 
@@ -23,6 +24,7 @@ public class YProtein : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().linearVelocity = (col.transform.position - transform.position) * speed;
             Invoke("DestroySelf", 10f);
+
         }
     }
 
@@ -30,7 +32,9 @@ public class YProtein : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //do damage to player
+
+            collision.gameObject.GetComponent<PlayerController>().Stun();
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
             Instantiate(explosionObj, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -38,7 +42,7 @@ public class YProtein : MonoBehaviour
 
     void DestroySelf()
     {
-        Instantiate(explosionObj, transform.position, Quaternion.identity);
+        //Instantiate(explosionObj, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

@@ -9,6 +9,7 @@ VisualElement {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    background-image: url("project://database/Assets/Sprites/UI/uibutton.png?fileID=21300000&guid=ce19d2c43eb75be4ab8ba5317c8da0e4&type=3#uibutton");
 }
 
 .button:hover {
